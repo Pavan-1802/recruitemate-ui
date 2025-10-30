@@ -16,6 +16,11 @@ RecruitMate is a modern, AI-powered recruitment platform that streamlines the hi
 - Resume parsing and analysis capabilities
 - Status tracking throughout the recruitment pipeline
 
+### 🤖 AI-Powered Content Generation
+- **Smart Job Descriptions**: AI generates detailed job descriptions from simple keywords
+- **Intelligent Email Composition**: Automated generation of professional acceptance/rejection emails
+- **Content Personalization**: Customize AI-generated content to match your company tone
+
 ### 📊 Comprehensive Dashboard
 - Real-time analytics and recruitment insights
 - Job posting management and tracking
@@ -31,6 +36,26 @@ RecruitMate is a modern, AI-powered recruitment platform that streamlines the hi
 - User registration and login system
 - Email verification for account security
 - Protected routes and role-based access
+
+## 🤖 AI-Powered Features
+
+RecruitMate leverages artificial intelligence to streamline your recruitment workflow:
+
+### Smart Job Description Generation
+- **Keyword-Based Creation**: Input simple keywords and let AI generate comprehensive job descriptions
+- **Professional Templates**: AI creates well-structured, industry-standard job postings
+- **Customizable Output**: Edit and refine AI-generated content to match your company voice
+
+### Intelligent Email Composition
+- **Automated Templates**: AI generates professional acceptance and rejection emails
+- **Context-Aware Content**: Emails are tailored based on the email type (acceptance/rejection)
+- **Personalization Ready**: Generated content can be customized before sending
+- **Professional Tone**: Maintains consistent, professional communication standards
+
+### Content Generation API
+- Integrated with `/ai/generate-text` endpoint for seamless AI functionality
+- Real-time content generation with loading states and error handling
+- Toast notifications for user feedback during AI operations
 
 ## 🛠️ Tech Stack
 
@@ -136,14 +161,16 @@ src/
 - **Public Routes**: Landing and authentication pages
 
 ### Job Management
-- **Job Creation**: Create and manage job postings
+- **Job Creation**: Create and manage job postings with AI assistance
 - **Job Cards**: Visual representation of job listings
-- **Job Form Modal**: Easy job creation and editing interface
+- **Job Form Modal**: Easy job creation and editing interface with AI-powered description generation
+- **Smart Descriptions**: Generate comprehensive job descriptions from keywords using AI
 
 ### Candidate Management
 - **Candidates Table**: Comprehensive candidate listing with filtering
 - **Resume Modal**: View and analyze candidate resumes
-- **Email Modal**: Communicate with candidates directly
+- **Email Modal**: Communicate with candidates using AI-generated templates
+- **Smart Email Composition**: AI generates professional acceptance/rejection emails
 - **Upload Candidates**: Bulk upload functionality for candidate data
 
 ### Dashboard & Analytics
@@ -158,6 +185,7 @@ The application integrates with a backend API for:
 - Candidate data management
 - Resume processing and scoring
 - Email communication
+- **AI Content Generation**: Integration with AI services for automated content creation
 
 ## 🎨 UI/UX Features
 

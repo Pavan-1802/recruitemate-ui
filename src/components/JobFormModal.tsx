@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { X } from "lucide-react";
+import { X, Sparkle } from "lucide-react";
 import type { Job } from "../../types";
+import { toast } from "react-hot-toast";
 
 export default function JobFormModal({
   onClose,
@@ -14,6 +15,7 @@ export default function JobFormModal({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [threshold, setThreshold] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (job) {
@@ -32,6 +34,34 @@ export default function JobFormModal({
       threshold,
       createdAt: job ? job.createdAt : new Date(),
     });
+  };
+
+  const createDescription = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    const response = await fetch(
+      `${import.meta.env.VITE_APP_API_BASE_URL}/ai/generate-text`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: `Generate a job description for a ${title} using these following keywords: ${description}`,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      toast.error("Failed to generate Job Description");
+      setLoading(false);
+      throw new Error("Failed to generate job description");
+    } else {
+      const data = await response.json();
+      setDescription(data.text);
+      toast.success("Job Description generated successfully");
+      setLoading(false);
+    }
   };
 
   const isEditMode = job !== null;
@@ -121,6 +151,21 @@ export default function JobFormModal({
               className="px-4 py-2 text-white bg-slate-700 hover:bg-slate-800 rounded-md font-medium transition-colors"
             >
               {isEditMode ? "Update Job" : "Create Job"}
+            </button>
+            <button
+              className="px-4 py-2 flex items-center gap-2 text-white bg-blue-500 rounded-md disabled:bg-gray-400 font-medium hover:bg-blue-600 transition-colors"
+              disabled={loading}
+              onClick={createDescription}
+              title="Add keywords in the textbox for your job description and let AI generate it for you"
+            >
+              {loading ? (
+                <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
+              ) : (
+                <>
+                  <Sparkle className="w-4 h-4 inline-block" />
+                </>
+              )}
+              <span>Generate Description</span>
             </button>
           </div>
         </form>

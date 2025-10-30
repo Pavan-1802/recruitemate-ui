@@ -6,7 +6,9 @@ import {
   Send,
   X,
   FileText,
+  Sparkle,
 } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function EmailModal({
   onClose,
@@ -29,9 +31,38 @@ export default function EmailModal({
       ? "We are thrilled to inform you that your application has been shortlisted for this position. We will reach out soon to discuss the next steps. Welcome aboard!\n\nBest regards,\nRecruitment Team"
       : "We wanted to provide you with an update regarding your application. We have reviewed your application. Unfortunately we will not be moving forward with your application at this time.\n\nBest regards,\nRecruitment Team"
   );
+  const [loading, setLoading] = useState(false);
 
   const subjectIsEmpty = subject.trim().length === 0;
   const bodyIsEmpty = body.trim().length === 0;
+
+  const generateEmailContent = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    const response = await fetch(
+      `${import.meta.env.VITE_APP_API_BASE_URL}/ai/generate-text`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: `Generate a ${mailType} email for a job application. Use these phrases or keywords: ${body}. Don't include any dearing or hi, hello and those kinds of stuff. Just the main content of the email.`,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      toast.error("Failed to generate Job Description");
+      setLoading(false);
+      throw new Error("Failed to generate job description");
+    } else {
+      const data = await response.json();
+      setBody(data.text);
+      toast.success("Job Description generated successfully");
+      setLoading(false);
+    }
+  };
 
   return (
     <div
@@ -41,7 +72,6 @@ export default function EmailModal({
       aria-labelledby="email-modal-title"
     >
       <div className="bg-white rounded-2xl shadow-2xl border border-slate-100 w-full max-w-3xl overflow-hidden">
-        {/* Header */}
         <div className="flex items-center justify-between gap-4 px-6 py-4 border-b border-slate-100">
           <div className="flex items-center gap-3">
             <div
@@ -79,11 +109,7 @@ export default function EmailModal({
           </button>
         </div>
 
-        {/* Body */}
         <div className="px-6 py-5 space-y-4">
-          {/* Recipient preview */}
-
-          {/* Subject */}
           <div className="flex items-center gap-3">
             <FileText className="w-5 h-5 text-slate-500" />
             <label htmlFor="subject" className="sr-only">
@@ -99,15 +125,12 @@ export default function EmailModal({
             />
           </div>
 
-          {/* Rich-ish toolbar (visual only) */}
           <div className="flex items-center justify-between">
-           
             <div className="text-xs text-slate-400">
               {body.length} characters
             </div>
           </div>
 
-          {/* Greeting + body */}
           <div className="bg-slate-50 border border-slate-100 rounded-md p-3">
             <p className="text-sm text-slate-700 mb-2">Dear Candidate,</p>
             <label htmlFor="body" className="sr-only">
@@ -125,7 +148,6 @@ export default function EmailModal({
           </div>
         </div>
 
-        {/* Footer actions */}
         <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between gap-4">
           <div className="text-xs text-slate-500">
             Preview will be sent as plain text.
@@ -154,6 +176,17 @@ export default function EmailModal({
             >
               <Send className="w-4 h-4" />
               Send
+            </button>
+
+            <button disabled={loading} onClick={generateEmailContent} className="px-4 py-2 bg-blue-500 rounded-md text-white flex items-center gap-2 hover:bg-blue-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed">
+              {loading ? (
+                <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
+              ) : (
+                <>
+                  <Sparkle className="w-4 h-4 inline-block" />
+                </>
+              )}
+              <span>Generate Email Content</span>
             </button>
           </div>
         </div>

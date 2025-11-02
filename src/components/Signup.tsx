@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast/headless";
 import { Mail, Lock, User, AlertCircle, CheckCircle } from "lucide-react";
 
-export default function Signup({ toggleForm }: { toggleForm: () => void }) {
+export default function Signup({ toggleForm }: { toggleForm: (action:string) => void }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -183,7 +183,7 @@ export default function Signup({ toggleForm }: { toggleForm: () => void }) {
           <p className="text-sm text-slate-600">
             Already have an account?{" "}
             <button
-              onClick={toggleForm}
+              onClick={() => toggleForm("login")}
               className="font-medium text-slate-900 hover:text-slate-700"
             >
               Login here

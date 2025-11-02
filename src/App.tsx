@@ -5,6 +5,7 @@ import VerifyEmail from "./pages/VerifyEmail";
 import Jobs from "./pages/Jobs";
 import UploadCandidates from "./pages/UploadCandidates";
 import Candidates from "./pages/Candidates";
+import ResetPassword from "./pages/ResetPassword";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 
@@ -26,6 +27,14 @@ function App() {
           element={
             <PublicRoute>
               <VerifyEmail />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/reset-password/:token"
+          element={
+            <PublicRoute>
+              <ResetPassword />
             </PublicRoute>
           }
         />

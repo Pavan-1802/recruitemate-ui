@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import { Mail, Lock } from "lucide-react";
 
-export default function Login({ toggleForm }: { toggleForm: () => void }) {
+export default function Login({ toggleForm }: { toggleForm: (action:string) => void }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -90,6 +90,7 @@ export default function Login({ toggleForm }: { toggleForm: () => void }) {
 
           <div className="flex items-center justify-between">
             <button
+              onClick={()=>toggleForm('forgot-password')}
               type="button"
               className="text-sm font-medium text-slate-900 hover:text-slate-700"
             >
@@ -109,7 +110,7 @@ export default function Login({ toggleForm }: { toggleForm: () => void }) {
           <p className="text-sm text-slate-600">
             Don't have an account?{" "}
             <button
-              onClick={toggleForm}
+              onClick={() => toggleForm("signup")}
               className="font-medium text-slate-900 hover:text-slate-700"
             >
               Sign up here

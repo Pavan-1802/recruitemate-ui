@@ -14,7 +14,7 @@ export default function JobFormModal({
 }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [threshold, setThreshold] = useState(0);
+  const [threshold, setThreshold] = useState(70);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

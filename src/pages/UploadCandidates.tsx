@@ -30,7 +30,7 @@ export default function UploadCandidates() {
     }
     
     const nameWithoutExt = file.name.replace('.pdf', '');
-    const nameParts = nameWithoutExt.split('-');
+    const nameParts = nameWithoutExt.split(/[-_]/);
     
     if (nameParts.length < 2 || nameParts.length > 3) {
       errors.push('Filename must be firstname-lastname.pdf or firstname-middlename-lastname.pdf');
@@ -167,11 +167,11 @@ export default function UploadCandidates() {
         </div>
 
         {files.length > 0 && (
-          <div className="mt-6 space-y-2">
-            <h3 className="text-sm font-semibold text-slate-700 mb-2">
+          <div className="mt-6">
+            <h3 className="text-sm font-semibold text-slate-700 mb-3">
               Selected Files ({validFilesCount} valid, {files.length - validFilesCount} invalid)
             </h3>
-            <div className="max-h-64 overflow-y-auto space-y-2">
+            <div className="max-h-80 overflow-y-auto space-y-2">
               {files.map((item) => (
                 <div
                   key={item.id}
@@ -238,7 +238,7 @@ export default function UploadCandidates() {
               disabled={validFilesCount === 0}
               className="flex-1 px-6 py-3 bg-slate-700 text-white rounded-lg font-medium hover:bg-slate-800 transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed"
             >
-              Process {validFilesCount > 0 && `(${validFilesCount})`}
+              {validFilesCount > 0 ? `Process (${validFilesCount})` : 'Process'}
             </button>
             <button
               onClick={handleCancel}

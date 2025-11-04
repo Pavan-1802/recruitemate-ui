@@ -7,6 +7,9 @@ import toast from "react-hot-toast";
 import CandidatesTable from "../components/CandidatesTable";
 import ConfirmationModal from "../components/ConfirmationModal";
 import EmailModal from "../components/EmailModal";
+import PaginationControls from "../components/PaginationControls";
+
+const LIMIT = 10;
 
 export default function Candidates() {
   const [candidates, setCandidates] = useState<Candidate[]>([]);
@@ -14,22 +17,49 @@ export default function Candidates() {
   const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(
     null
   );
-  const [candidateToDelete, setCandidateToDelete] = useState<Candidate | null>(null);
-  const [emailModalOpen, setEmailModalOpen] = useState({open: false, type: ""});
+  const [candidateToDelete, setCandidateToDelete] = useState<Candidate | null>(
+    null
+  );
+  const [emailModalOpen, setEmailModalOpen] = useState({
+    open: false,
+    type: "",
+  });
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
+
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    const fetchCandidates = async () => {
-      const response = await fetch(
-        `${import.meta.env.VITE_APP_API_BASE_URL}/candidates/${id}`
-      );
-      const data = await response.json();
-      setCandidates(data.candidates);
-      console.log(data.candidates[0].resume);
-      setJobTitle(data.jobTitle);
-    };
-    fetchCandidates();
+    setCurrentPage(1);
   }, [id]);
+
+  useEffect(() => {
+    if (!id) return; 
+
+    const fetchCandidates = async () => {
+      try {
+        const response = await fetch(
+          `${
+            import.meta.env.VITE_APP_API_BASE_URL
+          }/candidates/${id}?page=${currentPage}&limit=${LIMIT}`
+        );
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error || "Failed to fetch data");
+        }
+        setCandidates(data.candidates);
+        setJobTitle(data.jobTitle);
+        setTotalPages(data.totalPages);
+      } catch (error) {
+        toast.error("Failed to fetch candidates");
+        setCandidates([]);
+        setTotalPages(0);
+      }
+    };
+
+    fetchCandidates();
+  }, [id, currentPage]);
 
   const handleStatusChange = async (candidateId: string, newStatus: string) => {
     const response = await fetch(
@@ -83,7 +113,8 @@ export default function Candidates() {
           jobId: id,
           subject: email.subject,
           body: email.body,
-          status: emailModalOpen.type === "acceptance" ? "accepted" : "rejected"
+          status:
+            emailModalOpen.type === "acceptance" ? "accepted" : "rejected",
         }),
       }
     );
@@ -92,36 +123,33 @@ export default function Candidates() {
     } else {
       toast.error("Failed to send email");
     }
-  }
+  };
 
   const handleDeleteClick = (candidate: Candidate) => {
     setCandidateToDelete(candidate);
-  }
+  };
 
   const handleViewResume = (candidate: Candidate) => {
     setSelectedCandidate(candidate);
   };
 
   return (
-    <div className="p-8">
+    <div className="p-8 bg-slate-100 min-h-screen">
       <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-3 bg-slate-900 rounded-xl text-white">
               <Users size={28} />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-slate-900">
-                Candidates
-              </h1>
+              <h1 className="text-3xl font-bold text-slate-900">Candidates</h1>
               <p className="text-slate-600 mt-1">
-                Managing candidates for <span className="font-semibold">{jobTitle}</span>
+                Managing candidates for{" "}
+                <span className="font-semibold">{jobTitle}</span>
               </p>
             </div>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex flex-wrap items-center gap-4">
             <Link
               to={`/upload-candidates/${id}`}
@@ -130,17 +158,21 @@ export default function Candidates() {
               <Plus size={20} />
               Add Candidates
             </Link>
-            
+
             <button
-              onClick={() => setEmailModalOpen({open: true, type: "acceptance"})}
+              onClick={() =>
+                setEmailModalOpen({ open: true, type: "acceptance" })
+              }
               className="flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-all duration-200 shadow-sm hover:shadow-md"
             >
               <CheckCircle size={20} />
               Send Acceptance Email
             </button>
-            
+
             <button
-              onClick={() => setEmailModalOpen({open: true, type: "rejection"})}
+              onClick={() =>
+                setEmailModalOpen({ open: true, type: "rejection" })
+              }
               className="flex items-center gap-2 bg-slate-600 text-white px-6 py-3 rounded-lg hover:bg-slate-700 transition-all duration-200 shadow-sm hover:shadow-md"
             >
               <Mail size={20} />
@@ -149,7 +181,6 @@ export default function Candidates() {
           </div>
         </div>
 
-        {/* Candidates Table */}
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
           <CandidatesTable
             candidates={candidates}
@@ -157,6 +188,14 @@ export default function Candidates() {
             onDeleteClick={handleDeleteClick}
             onStatusChange={handleStatusChange}
           />
+
+          {totalPages > 1 && (
+            <PaginationControls
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={(page) => setCurrentPage(page)}
+            />
+          )}
 
           {candidates.length === 0 && (
             <div className="px-6 py-16 text-center">
@@ -203,9 +242,9 @@ export default function Candidates() {
       {emailModalOpen.open && (
         <EmailModal
           mailType={emailModalOpen.type}
-          onClose={() => setEmailModalOpen({open: false, type: ""})}
+          onClose={() => setEmailModalOpen({ open: false, type: "" })}
           onSend={(email) => {
-            sendMail(email);  
+            sendMail(email);
           }}
         />
       )}

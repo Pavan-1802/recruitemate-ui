@@ -148,9 +148,16 @@ export default function JobFormModal({
             </button>
             <button
               type="submit"
+              disabled={loading}
               className="px-4 py-2 text-white bg-slate-700 hover:bg-slate-800 rounded-md font-medium transition-colors"
             >
-              {isEditMode ? "Update Job" : "Create Job"}
+              {loading ? (
+                <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
+              ) : (
+                <>
+                  {isEditMode ? "Update Job" : "Create Job"}
+                </>
+              )}
             </button>
             <button
               className="px-4 py-2 flex items-center gap-2 text-white bg-blue-500 rounded-md disabled:bg-gray-400 font-medium hover:bg-blue-600 transition-colors"

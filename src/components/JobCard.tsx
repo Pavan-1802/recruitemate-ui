@@ -25,7 +25,7 @@ export default function JobCard({
             </p>
           )}
           <p className="text-xs text-slate-500">
-            Posted on: {formatDate(job.createdAt)}
+            Posted on: {formatDate(job.created_at)}
           </p>
         </div>
       </div>

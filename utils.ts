@@ -1,10 +1,12 @@
-export const formatDate = (date: Date): string => {
+export const formatDate = (date: string): string => {
+  console.log(date)
+  const parsedDate = new Date(date);
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
     day: "numeric",
   };
-  return new Intl.DateTimeFormat("en-US", options).format(date);
+  return new Intl.DateTimeFormat("en-US", options).format(parsedDate);
 };
 
 export const bufferToBase64 = (bufferData: number[] | Uint8Array): string => {

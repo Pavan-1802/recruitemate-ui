@@ -8,6 +8,7 @@ import Candidates from "./pages/Candidates";
 import ResetPassword from "./pages/ResetPassword";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
+import OnHold from "./pages/OnHold";
 
 function App() {
   return (
@@ -51,6 +52,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Candidates />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/on-hold-resumes"
+          element={
+            <ProtectedRoute>
+              <OnHold />
             </ProtectedRoute>
           }
         />

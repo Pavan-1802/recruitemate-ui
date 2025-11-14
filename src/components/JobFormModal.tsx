@@ -32,7 +32,7 @@ export default function JobFormModal({
       title,
       description,
       threshold,
-      createdAt: job ? job.createdAt : new Date(),
+      created_at: job ? job.created_at : new Date().toISOString(),
     });
   };
 

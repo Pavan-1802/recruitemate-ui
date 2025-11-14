@@ -2,7 +2,7 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  createdAt: Date;
+  created_at: string;
 }
 
 export interface Job {
@@ -10,7 +10,7 @@ export interface Job {
   title: string;
   description: string;
   threshold: number;
-  createdAt: Date;
+  created_at: string;
 }
 
 export interface Resume {
@@ -25,5 +25,9 @@ export interface Candidate {
   resume: Resume;
   score: string;
   status: string;
-  createdAt: Date;
+  created_at: string;
+}
+
+export interface onHoldResume extends Candidate {
+  job_title: string;
 }

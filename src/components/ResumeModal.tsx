@@ -20,7 +20,7 @@ export default function ResumeModal({ onClose, resume }: ResumeModalProps) {
   }, [resume]);
 
   return (
-    <div className="fixed inset-0 bg-slate-900 z-50 flex flex-col">
+    <div className="fixed inset-0 bg-slate-900 z-100 flex flex-col">
       {/* Header */}
       <div className="bg-slate-800 px-6 py-3 flex items-center justify-between shadow-lg">
         <h2 className="text-lg font-semibold text-white">Resume Preview</h2>

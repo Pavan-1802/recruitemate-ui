@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
-import type { Resume } from "../../types";
+import type { ResumeFile } from "../../types";
 import { bufferToBase64 } from "../../utils";
 
 interface ResumeModalProps {
   onClose: () => void;
-  resume: Resume | null;
+  resume: ResumeFile | null;
 }
 
 export default function ResumeModal({ onClose, resume }: ResumeModalProps) {

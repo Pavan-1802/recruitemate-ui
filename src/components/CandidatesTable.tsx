@@ -56,21 +56,27 @@ export default function CandidatesTable({
               {candidate.score}%
             </td>
             <td className="px-6 py-4">
-              <select
-                value={candidate.status}
-                onChange={(e) => onStatusChange(candidate.id, e.target.value)}
-                className={`rounded-md text-sm font-medium border-0 cursor-pointer ${
-                  candidate.status === "accepted"
-                    ? "text-green-800"
-                    : candidate.status === "rejected"
-                    ? "text-red-800"
-                    : "text-yellow-800"
-                }`}
-              >
-                <option value="accepted">Accepted</option>
-                <option value="rejected">Rejected</option>
-                <option value="on hold">On Hold</option>
-              </select>
+              {candidate.status === "interview scheduled" ? (
+                <span className="text-sm font-medium bg-blue-100 text-blue-800 px-3 py-1.5 rounded-full">
+                  Interview Scheduled
+                </span>
+              ) : (
+                <select
+                  value={candidate.status}
+                  onChange={(e) => onStatusChange(candidate.id, e.target.value)}
+                  className={`rounded-md text-sm font-medium border-0 cursor-pointer ${
+                    candidate.status === "accepted"
+                      ? "text-green-800"
+                      : candidate.status === "rejected"
+                      ? "text-red-800"
+                      : "text-yellow-800"
+                  }`}
+                >
+                  <option value="accepted">Accepted</option>
+                  <option value="rejected">Rejected</option>
+                  <option value="on hold">On Hold</option>
+                </select>
+              )}
             </td>
             <td className="px-6 py-4">
               <button

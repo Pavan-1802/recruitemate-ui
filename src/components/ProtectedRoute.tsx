@@ -1,5 +1,5 @@
 import { Navigate } from "react-router";
-import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
 
 export default function ProtectedRoute({
   children,
@@ -12,7 +12,7 @@ export default function ProtectedRoute({
   }
   return (
     <div className="h-screen bg-slate-100 flex">
-      <Navbar />
+      <Sidebar />
       <div className="flex-1 overflow-auto">
       {children}
       </div>

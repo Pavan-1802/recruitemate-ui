@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import type { onHoldResume, Resume } from "../../types";
+import type { Resume, ResumeFile } from "../../types";
 import ResumeCard from "../components/ResumeCard";
 import ResumeModal from "../components/ResumeModal";
 import { toast } from "react-hot-toast";
 
 export default function OnHold() {
-  const [onHoldResumes, setOnHoldResumes] = useState<onHoldResume[]>([]);
-  const [selectedResume, setSelectedResume] = useState<Resume | null>(null);
+  const [onHoldResumes, setOnHoldResumes] = useState<Resume[]>([]);
+  const [selectedResume, setSelectedResume] = useState<ResumeFile | null>(null);
   const fetchOnHoldResumes = async () => {
     try {
       const response = await fetch(
@@ -60,7 +60,7 @@ export default function OnHold() {
   };
 
   return (
-    <div className="bg-slate-100 min-h-screen p-8">
+    <div className="bg-slate-100 min-h-screen p-6">
       <h1 className="text-3xl font-bold text-slate-900 mb-6">
         On-Hold Resumes
       </h1>

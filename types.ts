@@ -13,7 +13,7 @@ export interface Job {
   created_at: string;
 }
 
-export interface Resume {
+export interface ResumeFile {
   type: string;
   data: number[];
 }
@@ -22,12 +22,24 @@ export interface Candidate {
   id: string;
   name: string;
   email: string;
-  resume: Resume;
+  resume: ResumeFile;
   score: string;
   status: string;
   created_at: string;
 }
 
-export interface onHoldResume extends Candidate {
+export interface Resume extends Candidate {
   job_title: string;
+}
+
+export interface Interview {
+  id: string;
+  candidate_id: string;
+  name?: string;
+  title?: string;
+  start_time: string;
+  duration: string;
+  reminder: number;
+  link: string;
+  created_at: string;
 }

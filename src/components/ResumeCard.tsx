@@ -1,11 +1,11 @@
-import type { onHoldResume } from "../../types";
+import type { Resume } from "../../types";
 
 export default function ResumeCard({
   resume,
   onSelect,
   onChangeStatus,
 }: {
-  resume: onHoldResume;
+  resume: Resume;
   onSelect: () => void;
   onChangeStatus: (resumeId: string, status: string) => void;
 }) {

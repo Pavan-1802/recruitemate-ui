@@ -66,14 +66,6 @@ function App() {
           }
         />
         <Route
-          path="/jobs"
-          element={
-            <ProtectedRoute>
-              <Jobs />
-            </ProtectedRoute>
-          }
-        />
-        <Route
           path="/candidates/:id"
           element={
             <ProtectedRoute>

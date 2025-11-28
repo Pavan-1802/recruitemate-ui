@@ -2,7 +2,7 @@ import { Link, useNavigate, useLocation } from "react-router";
 import { Briefcase, FileText, CalendarDays, UserPlus, LogOut } from "lucide-react";
 
 const sidebarItems = [
-  { label: "Job Listings", to: "/jobs", icon: Briefcase },
+  { label: "Job Listings", to: "/", icon: Briefcase },
   { label: "Resumes On Hold", to: "/on-hold-resumes", icon: FileText },
   { label: "Interviews", to: "/interview-calendar", icon: CalendarDays },
   { label: "Schedule Meeting", to: "/schedule-interviews", icon: UserPlus },

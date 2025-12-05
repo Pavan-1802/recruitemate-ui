@@ -21,41 +21,39 @@ RecruitMate is a modern, AI-powered recruitment platform that streamlines the hi
 - **Intelligent Email Composition**: Automated generation of professional acceptance/rejection emails
 - **Content Personalization**: Customize AI-generated content to match your company tone
 
-### 📊 Comprehensive Dashboard
-- Real-time analytics and recruitment insights
-- Job posting management and tracking
-- Candidate pipeline visualization
-
 ### 👥 Candidate Management
-- Bulk candidate upload functionality
-- Email communication tools
-- Resume viewing and management
-- Status tracking (Applied, Reviewing, Interviewed, Hired, Rejected)
+- **Modern Card Interface**: Gradient-based card design with animations
+- **Score Badges**: Visual candidate scoring with color-coded badges
+- **Smart Scheduling**: Schedule interviews directly from candidate cards
+- **Candidates Table**: Comprehensive listing with filtering and pagination
+- **Bulk Upload**: Upload multiple candidates at once
+- **Email Communication**: Professional email templates for candidate outreach
+- **Resume Management**: View and analyze candidate resumes
+- **On-Hold Status**: Manage candidates on hold with dedicated view
 
 ### 🔐 Secure Authentication
 - User registration and login system
 - Email verification for account security
+- Password reset functionality
 - Protected routes and role-based access
+- Secure token-based authentication
 
-## 🤖 AI-Powered Features
+### 📅 Interview Scheduling & Calendar
+- **Card-Based Interview Display**: Modern card layout with gradient headers
+- **Overlap Detection**: Intelligent detection and visual indicators for scheduling conflicts
+- **Conflict Management**: Amber warnings for overlapping interview slots
+- **Filter Tabs**: Filter by All, Today, Upcoming, or Conflicts
+- **Statistics Dashboard**: Live counts for scheduled, upcoming, and conflicting interviews
+- **Time Management**: Detailed time display with duration and end time calculations
+- **Action Controls**: View details and delete interviews directly from cards
+- **Empty States**: Graceful handling when no interviews are scheduled
 
-RecruitMate leverages artificial intelligence to streamline your recruitment workflow:
-
-### Smart Job Description Generation
-- **Keyword-Based Creation**: Input simple keywords and let AI generate comprehensive job descriptions
-- **Professional Templates**: AI creates well-structured, industry-standard job postings
-- **Customizable Output**: Edit and refine AI-generated content to match your company voice
-
-### Intelligent Email Composition
-- **Automated Templates**: AI generates professional acceptance and rejection emails
-- **Context-Aware Content**: Emails are tailored based on the email type (acceptance/rejection)
-- **Personalization Ready**: Generated content can be customized before sending
-- **Professional Tone**: Maintains consistent, professional communication standards
-
-### Content Generation API
-- Integrated with `/ai/generate-text` endpoint for seamless AI functionality
-- Real-time content generation with loading states and error handling
-- Toast notifications for user feedback during AI operations
+### 💼 Job Management
+- Create and manage job postings
+- AI-powered job description generation
+- Edit and delete job listings
+- Track candidates per job
+- Navigate to candidate management per job
 
 ## 🛠️ Tech Stack
 
@@ -106,59 +104,58 @@ Replace the API base URL with your backend server URL.
 npm run dev
 ```
 
-The application will be available at `http://localhost:5173`
-
-## 📜 Available Scripts
-
-- `npm run dev` - Start the development server
-- `npm run build` - Build the application for production
-- `npm run preview` - Preview the production build locally
-- `npm run lint` - Run ESLint to check code quality
-
-## 🏗️ Project Structure
-
 ```
 src/
 ├── components/          # Reusable UI components
-│   ├── CandidatesTable.tsx
-│   ├── ConfirmationModal.tsx
-│   ├── EmailModal.tsx
-│   ├── JobCard.tsx
-│   ├── JobFormModal.tsx
-│   ├── Landing.tsx
-│   ├── LoadingSpinner.tsx
-│   ├── Login.tsx
-│   ├── Navbar.tsx
-│   ├── ProtectedRoute.tsx
-│   ├── PublicRoute.tsx
-│   ├── ResumeModal.tsx
-│   └── Signup.tsx
+│   ├── CandidateCard.tsx              # Modern gradient card for candidates
+│   ├── CandidatesTable.tsx            # Comprehensive candidate listing table
+│   ├── ConfirmationModal.tsx          # Reusable confirmation dialog
+│   ├── ConflictBanner.tsx             # Warning banner for interview conflicts
+│   ├── EmailModal.tsx                 # Email composition modal
+│   ├── EmptyState.tsx                 # Context-aware empty state component
+│   ├── FilterTabs.tsx                 # Filter buttons for interview calendar
+│   ├── ForgotPassword.tsx             # Forgot password form
+│   ├── InterviewCard.tsx              # Individual interview card with conflict indicators
+│   ├── InterviewModal.tsx             # Interview details modal
+│   ├── InterviewStats.tsx             # Statistics cards for interviews
+│   ├── JobCard.tsx                    # Job listing card
+│   ├── JobFormModal.tsx               # Job creation/editing form
+│   ├── Landing.tsx                    # Landing page component
+│   ├── LoadingSpinner.tsx             # Loading indicator
+│   ├── Login.tsx                      # Login form
+│   ├── PaginationControls.tsx         # Pagination component
+│   ├── ProtectedRoute.tsx             # Route wrapper for authenticated pages
+│   ├── PublicRoute.tsx                # Route wrapper for public pages
+│   ├── ResumeCard.tsx                 # Resume display card
+│   ├── ResumeModal.tsx                # Resume viewing modal
+│   ├── ScheduleInterviewsEmpty.tsx    # Empty state for schedule page
+│   ├── ScheduleInterviewsHeader.tsx   # Header with stat cards
+│   ├── Sidebar.tsx                    # Navigation sidebar
+│   └── Signup.tsx                     # Registration form
 ├── pages/              # Page components
-│   ├── Authentication.tsx
-│   ├── Candidates.tsx
-│   ├── Dashboard.tsx
-│   ├── Jobs.tsx
-│   ├── UploadCandidates.tsx
-│   └── VerifyEmail.tsx
+│   ├── Authentication.tsx             # Login/Signup page
+│   ├── Candidates.tsx                 # Candidate management page
+│   ├── InterviewCalendar.tsx          # Card-based with overlap detection
+│   ├── Jobs.tsx                       # Job listings page
+│   ├── OnHold.tsx                     # On-hold resumes page
+│   ├── ResetPassword.tsx              # Password reset page
+│   ├── ScheduleInterviews.tsx         # Interview scheduling interface
+│   ├── UploadCandidates.tsx           # Bulk candidate upload page
+│   └── VerifyEmail.tsx                # Email verification page
 ├── assets/             # Static assets
-├── App.tsx            # Main application component
+├── App.tsx            # Main application component with routing
 ├── main.tsx           # Application entry point
-└── index.css          # Global styles
-```
-
-## 🔧 Configuration Files
-
-- `vite.config.ts` - Vite build configuration
-- `tsconfig.json` - TypeScript configuration
-- `eslint.config.js` - ESLint configuration
-- `tailwind.config.js` - Tailwind CSS configuration (if present)
-
+├── index.css          # Global styles
+types.ts               # TypeScript type definitions
+utils.ts               # Utility functions (date formatting, overlap detection)
 ## 🌟 Key Components
 
 ### Authentication System
 - **Login/Signup**: User authentication with email verification
 - **Protected Routes**: Secure access to authenticated pages
 - **Public Routes**: Landing and authentication pages
+- **Password Reset**: Forgot password and reset password flows
+- **Email Verification**: Account activation via email token
 
 ### Job Management
 - **Job Creation**: Create and manage job postings with AI assistance
@@ -167,15 +164,21 @@ src/
 - **Smart Descriptions**: Generate comprehensive job descriptions from keywords using AI
 
 ### Candidate Management
-- **Candidates Table**: Comprehensive candidate listing with filtering
+- **Candidates Table**: Comprehensive candidate listing with filtering and pagination
+- **Candidate Cards**: Modern gradient-based cards with score badges and animations
 - **Resume Modal**: View and analyze candidate resumes
 - **Email Modal**: Communicate with candidates using AI-generated templates
-- **Smart Email Composition**: AI generates professional acceptance/rejection emails
 - **Upload Candidates**: Bulk upload functionality for candidate data
+- **On-Hold Resumes**: Dedicated page for managing candidates on hold
+- **Schedule Interviews**: Direct scheduling from candidate cards
 
-### Dashboard & Analytics
-- **Dashboard**: Overview of recruitment metrics and activities
-- **Loading Spinner**: Consistent loading states across the application
+### Interview Management
+- **Interview Calendar**: Card-based interface with conflict detection
+- **Overlap Detection**: Intelligent algorithm to detect scheduling conflicts
+- **Interview Stats**: Real-time statistics for scheduled, upcoming, and conflicting interviews
+- **Filter System**: Filter interviews by All, Today, Upcoming, or Conflicts
+- **Interview Cards**: Detailed cards showing time, duration, candidate, and job information
+- **Conflict Indicators**: Visual warnings for overlapping interview slots
 
 ## 🔌 API Integration
 
@@ -185,22 +188,59 @@ The application integrates with a backend API for:
 - Candidate data management
 - Resume processing and scoring
 - Email communication
-- **AI Content Generation**: Integration with AI services for automated content creation
+- Interview scheduling and management
+- AI content generation for job descriptions and emails
 
 ## 🎨 UI/UX Features
 
 - **Responsive Design**: Works seamlessly across desktop and mobile devices
 - **Modern Interface**: Clean, professional design with Tailwind CSS
+- **Gradient Backgrounds**: Subtle gradients for visual depth
+- **Card-Based Layouts**: Modern card designs with shadows and hover effects
 - **Interactive Components**: Modals, forms, and dynamic content
+- **Animations**: Smooth transitions and hover effects
 - **Toast Notifications**: Real-time feedback for user actions
-- **Loading States**: Smooth user experience with loading indicators
+- **Loading States**: Smooth loading experience with spinners
+- **Empty States**: Graceful handling of no-data scenarios with custom messages
+- **Visual Feedback**: Badges, indicators, and status colors for instant recognition
+
+### Utility Components
+- **Loading Spinner**: Consistent loading states across the application
+- **Confirmation Modal**: Reusable confirmation dialogs
+- **Pagination Controls**: Navigate through large datasets
+- **Empty State**: Generic empty state component with customizable messages
+- **Filter Tabs**: Reusable tab component for filtering data
+- **Sidebar**: Navigation sidebar for authenticated pages
 
 ## 🔒 Security Features
 
 - Protected routes for authenticated users only
-- Secure API communication
+- Secure API communication with Bearer token authentication
 - Email verification for account activation
+- Password reset with secure token-based flow
+- LocalStorage-based session management
 - Input validation and sanitization
+
+## 🎯 Code Architecture
+
+### Component Organization
+The application follows a modular architecture with:
+- **Page Components**: Main route components that orchestrate functionality
+- **Feature Components**: Specialized components for specific features
+- **Utility Components**: Reusable, generic components used across pages
+- **Centralized Utilities**: Shared functions in `utils.ts` for date formatting, overlap detection, etc.
+
+### Key Utilities (`utils.ts`)
+- `formatDateTime`: Smart date formatting (Today/Tomorrow/Date)
+- `formatInterviewTime`: 12-hour time format conversion
+- `getEndTime`: Calculate interview end time from start and duration
+- `detectInterviewOverlaps`: Complex overlap detection algorithm using Map/Set
+
+### Component Patterns
+- TypeScript interfaces for strong typing (`types.ts`)
+- Consistent naming conventions (handle* for events, fetch* for API calls)
+- Reusable modal components
+- Composition over inheritance for component reusability
 
 ## 🚀 Deployment
 
@@ -218,6 +258,18 @@ The build files will be generated in the `dist` directory.
 npm run preview
 ```
 
+## 📱 Application Routes
+
+- `/` - Jobs page (protected, default route)
+- `/auth` - Authentication page (login/signup)
+- `/verify/:token` - Email verification page
+- `/reset-password/:token` - Password reset page
+- `/upload-candidates/:id` - Bulk candidate upload for a specific job
+- `/candidates/:id` - Candidate management for a specific job
+- `/on-hold-resumes` - View and manage on-hold candidates
+- `/interview-calendar` - Interview calendar with conflict detection
+- `/schedule-interviews` - Schedule interviews interface
+
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -225,3 +277,11 @@ npm run preview
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+## 📄 License
+
+This project is part of RecruitMate - All rights reserved.
+
+## 👥 Authors
+
+- **Pavan** - [@Pavan-1802](https://github.com/Pavan-1802)
